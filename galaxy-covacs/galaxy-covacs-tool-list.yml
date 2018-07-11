@@ -1,0 +1,65 @@
+---
+
+
+api_key: admin
+galaxy_instance: http://localhost:8080
+install_resolver_dependencies: true
+install_tool_dependencies: false
+tools:
+
+#________________________________
+#galaxy-covacs tools
+
+
+- name: bedtools
+  owner: iuc
+  tool_panel_section_label: "BED Tools"
+
+- name: trimmomatic
+  owner: pjbriggs
+  tool_panel_section_label: "trimming"
+
+- name: fastqc
+  owner: devteam
+  tool_panel_section_label: "quality control"
+
+- name: bwa
+  owner: devteam
+  tool_panel_section_label: "DNA-alignment"
+
+- name: bowtie2
+  owner: devteam
+  tool_panel_section_label: "DNA-alignment"
+
+- name: bowtie_wrappers
+  owner: devteam
+  tool_panel_section_label: "DNA-alignment"
+
+- name: samtools_sort
+  owner: devteam
+  tool_panel_section_label: "preprocessing"
+
+- name: picard
+  owner: devteam
+  tool_panel_section_label: "preprocessing"
+
+- name: gatk
+  owner: avowinkel
+  tool_panel_section_label: "variant calling"
+
+- name: samtools_mpileup
+  owner: devteam
+  tool_panel_section_label: "variant calling"
+
+- name: varscan_version_2
+  owner: devteam
+  tool_panel_section_label: "variant calling"
+
+- name: freebayes
+  owner: devteam
+  tool_panel_section_label: "variant calling"
+
+- name: annovar
+  owner: saskia-hilteman
+  tool_panel_section_label: "annotation"
+
