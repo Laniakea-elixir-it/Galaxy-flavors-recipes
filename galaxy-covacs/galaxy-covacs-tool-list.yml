@@ -8,7 +8,7 @@ install_tool_dependencies: false
 tools:
 
 #________________________________
-#galaxy-covacs tools
+#galaxy-CoVaCS tools
 
 
 - name: bedtools
@@ -17,11 +17,11 @@ tools:
 
 - name: trimmomatic
   owner: pjbriggs
-  tool_panel_section_label: "trimming"
+  tool_panel_section_label: "pre-alignment"
 
 - name: fastqc
   owner: devteam
-  tool_panel_section_label: "quality control"
+  tool_panel_section_label: "pre-alignment"
 
 - name: bwa
   owner: devteam
@@ -35,31 +35,70 @@ tools:
   owner: devteam
   tool_panel_section_label: "DNA-alignment"
 
-- name: samtools_sort
-  owner: devteam
-  tool_panel_section_label: "preprocessing"
-
 - name: picard
   owner: devteam
-  tool_panel_section_label: "preprocessing"
+  tool_panel_section_label: "picard-tools"
 
 - name: gatk
   owner: avowinkel
-  tool_panel_section_label: "variant calling"
+  tool_panel_section_label: "Co-cleaning"
 
-- name: samtools_mpileup
+- name: vcftools_merge
   owner: devteam
-  tool_panel_section_label: "variant calling"
+  tool_panel_section_label: "vcf-tools"
 
-- name: varscan_version_2
-  owner: devteam
-  tool_panel_section_label: "variant calling"
+- name: covacs_HaplotypeCaller
+  owner: elixir-it
+  tool_panel_section_label: "COVACS"
+  tool_shed_url: "https://testtoolshed.g2.bx.psu.edu"
 
-- name: freebayes
-  owner: devteam
-  tool_panel_section_label: "variant calling"
+- name: covacs_VariantRecalibrator
+  owner: elixir-it
+  tool_panel_section_label: "COVACS"
+  tool_shed_url: "https://testtoolshed.g2.bx.psu.edu"
 
-- name: annovar
-  owner: saskia-hilteman
-  tool_panel_section_label: "annotation"
+- name: covacs_ApplyRecalibrator
+  owner: elixir-it
+  tool_panel_section_label: "COVACS"
+  tool_shed_url: "https://testtoolshed.g2.bx.psu.edu"
+
+- name: covacs_Select_filtration
+  owner: elixir-it
+  tool_panel_section_label: "COVACS"
+  tool_shed_url: "https://testtoolshed.g2.bx.psu.edu"
+
+- name: covacs_freebayes
+  owner: elixir-it
+  tool_panel_section_label: "COVACS"
+  tool_shed_url: "https://testtoolshed.g2.bx.psu.edu"
+
+- name: covacs_mpileup
+  owner: elixir-it
+  tool_panel_section_label: "COVACS"
+  tool_shed_url: "https://testtoolshed.g2.bx.psu.edu"
+
+- name: covacs_varscan2
+  owner: elixir-it
+  tool_panel_section_label: "COVACS"
+  tool_shed_url: "https://testtoolshed.g2.bx.psu.edu"
+
+- name: covacs_intersect_INDEL
+  owner: elixir-it
+  tool_panel_section_label: "COVACS"
+  tool_shed_url: "https://testtoolshed.g2.bx.psu.edu"
+
+- name: covacs_intersect_SNP
+  owner: elixir-it
+  tool_panel_section_label: "COVACS"
+  tool_shed_url: "https://testtoolshed.g2.bx.psu.edu"
+
+- name: covacs_tabix
+  owner: elixir-it
+  tool_panel_section_label: "COVACS"
+  tool_shed_url: "https://testtoolshed.g2.bx.psu.edu"
+
+- name: covacs_annovar
+  owner: elixir-it
+  tool_panel_section_label: "COVACS"
+  tool_shed_url: "https://testtoolshed.g2.bx.psu.edu"
 
