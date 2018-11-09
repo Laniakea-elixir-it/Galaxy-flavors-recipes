@@ -47,22 +47,22 @@ tools:
   owner: devteam
   tool_panel_section_label: "vcf-tools"
 
-- name: covacs_HaplotypeCaller
+- name: covacs_haplotype_caller
   owner: elixir-it
   tool_panel_section_label: "COVACS"
   tool_shed_url: "https://testtoolshed.g2.bx.psu.edu"
 
-- name: covacs_VariantRecalibrator
+- name: covacs_variant_recalibrator
   owner: elixir-it
   tool_panel_section_label: "COVACS"
   tool_shed_url: "https://testtoolshed.g2.bx.psu.edu"
 
-- name: covacs_ApplyRecalibrator
+- name: covacs_apply_recalibrator
   owner: elixir-it
   tool_panel_section_label: "COVACS"
   tool_shed_url: "https://testtoolshed.g2.bx.psu.edu"
 
-- name: covacs_Select_filtration
+- name: covacs_select_filtration
   owner: elixir-it
   tool_panel_section_label: "COVACS"
   tool_shed_url: "https://testtoolshed.g2.bx.psu.edu"
@@ -82,12 +82,12 @@ tools:
   tool_panel_section_label: "COVACS"
   tool_shed_url: "https://testtoolshed.g2.bx.psu.edu"
 
-- name: covacs_intersect_INDEL
+- name: covacs_intersect_indels
   owner: elixir-it
   tool_panel_section_label: "COVACS"
   tool_shed_url: "https://testtoolshed.g2.bx.psu.edu"
 
-- name: covacs_intersect_SNP
+- name: covacs_intersect_snps
   owner: elixir-it
   tool_panel_section_label: "COVACS"
   tool_shed_url: "https://testtoolshed.g2.bx.psu.edu"
