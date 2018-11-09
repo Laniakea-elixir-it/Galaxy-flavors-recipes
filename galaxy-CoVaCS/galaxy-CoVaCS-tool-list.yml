@@ -39,10 +39,6 @@ tools:
   owner: devteam
   tool_panel_section_label: "picard-tools"
 
-- name: gatk
-  owner: avowinkel
-  tool_panel_section_label: "Co-cleaning"
-
 - name: vcftools_merge
   owner: devteam
   tool_panel_section_label: "vcf-tools"
