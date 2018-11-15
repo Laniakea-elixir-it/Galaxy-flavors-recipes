@@ -6,5 +6,6 @@
 - name: "Set {{galaxy_flavor}} resources"
   set_fact:
     galaxy_tools_tool_list_files:
-      - '{{galaxy_tools_base_dir}}/Galaxy-flavors-recipes/{{galaxy_flavor}}/galaxy-CoVaCS-tool-list.yml'
+      - '{{galaxy_tools_base_dir}}/Galaxy-flavors-recipes/{{galaxy_flavor}}/galaxy-CoVaCS-tool-list-1.yml'
+      - '{{galaxy_tools_base_dir}}/Galaxy-flavors-recipes/{{galaxy_flavor}}/galaxy-CoVaCS-tool-list-2.yml'
 
