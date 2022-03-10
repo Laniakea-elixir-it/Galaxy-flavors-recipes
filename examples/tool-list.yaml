@@ -1,0 +1,29 @@
+---
+
+api_key: admin
+galaxy_instance: http://localhost:8080
+install_resolver_dependencies: true
+install_tool_dependencies: false
+
+
+tools:
+
+- name: fastqc
+  owner: devteam
+  tool_panel_section_label: "tools"
+
+- name: bowtie2
+  owner: devteam
+  tool_panel_section_label: "tools"
+
+- name: bowtie_wrappers
+  owner: devteam
+  tool_panel_section_label: "tools"
+
+- name: sam_to_bam
+  owner: devteam
+  tool_panel_section_label: "tools"
+
+- name: bam_to_sam
+  owner: devteam
+  tool_panel_section_label: "tools"
