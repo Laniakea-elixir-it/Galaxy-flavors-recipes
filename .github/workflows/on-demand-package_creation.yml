@@ -65,6 +65,6 @@ jobs:
           JnkUser: ${{ secrets.JnkUser }}
           JnkApiKey: ${{ secrets.JnkApiKey }}
         run: |
-          ls | grep -v 'JNK-CI\|workflow\|README.md'| xargs -L1 -I {} curl -X POST "https://${{ secrets.JnkUser }}:${{ secrets.JnkApiKey }}@build-usegalaxy-it.cloud.ba.infn.it/jenkins/job/flavour_packages_pipeline/buildWithParameters?token=${{ secrets.Token }}&FLAVOR={}&VERSION=${{ github.event.inputs.Version }}&IMAGE=${{ github.event.inputs.Image }}"
+          ls | grep -v 'JNK-CI\|workflow\|README.md\|examples'| xargs -L1 -I {} curl -X POST "https://${{ secrets.JnkUser }}:${{ secrets.JnkApiKey }}@build-usegalaxy-it.cloud.ba.infn.it/jenkins/job/flavour_packages_pipeline/buildWithParameters?token=${{ secrets.Token }}&FLAVOR={}&VERSION=${{ github.event.inputs.Version }}&IMAGE=${{ github.event.inputs.Image }}"
 
 
