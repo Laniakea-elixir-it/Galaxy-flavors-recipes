@@ -1,5 +1,7 @@
-# Galaxy-flavors-recipes
-Galaxy flavors recipes for ELIXIR-ITA use case in INDIGO to be used as input of indigo-dc/ansible-galaxy-tools
+# Galaxy-flavours
+Laniakea Galaxy flavours repository
+
+[Link to the documentation](https://laniakea.readthedocs.io/en/latest/user_documentation/galaxy/galaxy_flavours_creation.html)
 
 # Flavor Package creation
 
