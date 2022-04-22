@@ -5,6 +5,8 @@ name: on-demand-package-creation
 # Controls when the workflow will run
 on:
   workflow_dispatch:
+    branches:
+      - dev 
     inputs:
       Flavor:
         type: choice 
@@ -23,10 +25,6 @@ on:
           - galaxy-testing-lite
           - galaxy-vinyl
           - all 
-      Version: 
-        description: 'flavor version'
-        required: true
-        default: '1'
       Image: 
         type: choice
         description: 'image to use to build the package'
@@ -57,7 +55,7 @@ jobs:
           JnkUser: ${{ secrets.JnkUser }}
           JnkApiKey: ${{ secrets.JnkApiKey }}
         run: |
-          curl -X POST "https://${{ secrets.JnkUser }}:${{ secrets.JnkApiKey }}@build-usegalaxy-it.cloud.ba.infn.it/jenkins/job/flavour_packages_pipeline/buildWithParameters?token=${{ secrets.Token }}&FLAVOR=${{ github.event.inputs.Flavor }}&VERSION=${{ github.event.inputs.Version }}&IMAGE=${{ github.event.inputs.Image }}"
+          curl -X POST "https://${{ secrets.JnkUser }}:${{ secrets.JnkApiKey }}@build-usegalaxy-it.cloud.ba.infn.it/jenkins/job/test_versioning/buildWithParameters?token=${{ secrets.Token }}&FLAVOR=${{ github.event.inputs.Flavor }}&VERSION=${{ github.event.inputs.Version }}&IMAGE=${{ github.event.inputs.Image }}"
       
       - name: when flavor is all  
         if: github.event.inputs.Flavor == 'all'
