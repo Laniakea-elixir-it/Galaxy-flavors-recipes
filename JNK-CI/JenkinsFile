@@ -19,8 +19,9 @@ pipeline {
 								cd ansible-role-laniakea-galaxy-tools && git checkout dev && cd ..  
 								cd JNK-CI
 								sed -i s/VM_IP/$VM_IP/g hosts
-								ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -i hosts --private-key /home/centos/.ssh/id_rsa  tools_playbook.yml -e galaxy_flavor=$FLAVOR -e galaxy_flavor_version=$VERSION
-								ansible-playbook -i hosts --private-key /home/centos/.ssh/id_rsa  dump.yml -e ansible_python_interpreter=/usr/bin/python -e galaxy_flavor=$FLAVOR -e galaxy_flavor_version=$VERSION '''
+								VERSION=$(./packages_vc.sh -c show -f $FLAVOR -d test.db -i $IMAGE -g $GALAXY_RELEASE)
+								ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -i hosts --private-key /home/centos/.ssh/id_rsa  tools_playbook.yml -e galaxy_flavor=$FLAVOR -e image=$IMAGE
+								ansible-playbook -i hosts --private-key /home/centos/.ssh/id_rsa dump.yml -e ansible_python_interpreter=/usr/bin/python -e galaxy_flavor=$FLAVOR -e galaxy_flavor_version=$VERSION '''
 				}
 
 			}
@@ -57,7 +58,7 @@ pipeline {
 		}
 		success {
 			withCredentials([string(credentialsId: 'telegram_bot_API_token', variable: 'API_TOKEN')]) {
-				build job: 'package_upload_to_cvmfs'
+//				build job: 'package_upload_to_cvmfs'
 				sh 'curl -s -X POST https://api.telegram.org/bot$API_TOKEN/sendMessage -d chat_id=-667232678 -d text="Laniakea express package $FLAVOR:$VERSION for $IMAGE build: SUCCESS!!!"'
 			}
 		}
