@@ -1,0 +1,68 @@
+# This is a basic workflow to help you get started with Actions
+
+name: on-demand-package-creation
+
+# Controls when the workflow will run
+on:
+  workflow_dispatch:
+    branches:
+      - dev 
+    inputs:
+      Flavor:
+        type: choice 
+        description: 'galaxy flavor to build'     
+        required: true
+        default: 'galaxy-testing'
+        options:
+          - cov-19-test
+          - galaxy-CoVaCS
+          - galaxy-epigen
+          - galaxy-flavors
+          - galaxy-GDC_Somatic_Variant
+          - galaxy-pillar
+          - galaxy-rna-workbench
+          - galaxy-testing
+          - galaxy-testing-lite
+          - galaxy-vinyl
+          - all 
+      Image: 
+        type: choice
+        description: 'image to use to build the package'
+        required: true
+        default: 'galaxy-express_v3.0.2'
+        options: 
+          - galaxy-express_v3.0.2
+
+  # Allows you to run this workflow manually from the Actions tab
+  #  workflow_dispatch:
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build"
+  build:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v2
+
+      # Runs a single command using the runners shell
+      - name: Run a one-line script
+        if: github.event.inputs.Flavor != 'all'
+        env:
+          JnkUser: ${{ secrets.JnkUser }}
+          JnkApiKey: ${{ secrets.JnkApiKey }}
+        run: |
+          curl -X POST "https://${{ secrets.JnkUser }}:${{ secrets.JnkApiKey }}@build-usegalaxy-it.cloud.ba.infn.it/jenkins/job/test_versioning/buildWithParameters?token=${{ secrets.Token }}&FLAVOR=${{ github.event.inputs.Flavor }}&VERSION=${{ github.event.inputs.Version }}&IMAGE=${{ github.event.inputs.Image }}"
+      
+      - name: when flavor is all  
+        if: github.event.inputs.Flavor == 'all'
+        env:
+          JnkUser: ${{ secrets.JnkUser }}
+          JnkApiKey: ${{ secrets.JnkApiKey }}
+        run: |
+          ls | grep -v 'JNK-CI\|workflow\|README.md\|examples'| xargs -L1 -I {} curl -X POST "https://${{ secrets.JnkUser }}:${{ secrets.JnkApiKey }}@build-usegalaxy-it.cloud.ba.infn.it/jenkins/job/flavour_packages_pipeline/buildWithParameters?token=${{ secrets.Token }}&FLAVOR={}&VERSION=${{ github.event.inputs.Version }}&IMAGE=${{ github.event.inputs.Image }}"
+
+
