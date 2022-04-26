@@ -19,7 +19,7 @@
         dest: /tmp/dump/rc.sh
 
     - name: 
-      shell: source /tmp/dump/rc.sh && /usr/local/bin/swift upload -S 1073741824  --insecure galaxy_flavors release*
+      shell: source /tmp/dump/rc.sh && /usr/local/bin/swift upload -S 1073741824  --insecure galaxy_flavors galaxy-express*
       args:
         chdir: /tmp/dump
 
