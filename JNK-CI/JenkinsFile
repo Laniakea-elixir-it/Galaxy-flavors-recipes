@@ -21,7 +21,7 @@ pipeline {
 								sed -i s/VM_IP/$VM_IP/g hosts
 								VERSION=$(./packages_vc.sh -c show -f $FLAVOR -d test.db -i $IMAGE -g $GALAXY_RELEASE)
 								ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -i hosts --private-key /home/centos/.ssh/id_rsa  tools_playbook.yml -e galaxy_flavor=$FLAVOR -e image=$IMAGE
-								ansible-playbook -i hosts --private-key /home/centos/.ssh/id_rsa dump.yml -e ansible_python_interpreter=/usr/bin/python -e galaxy_flavor=$FLAVOR -e galaxy_flavor_version=$VERSION '''
+								ansible-playbook -i hosts --private-key /home/centos/.ssh/id_rsa dump.yml -e ansible_python_interpreter=/usr/bin/python -e image=$IMAGE -e galaxy_flavor=$FLAVOR -e galaxy_flavor_version=$VERSION '''
 				}
 
 			}
