@@ -1,5 +1,5 @@
 pipeline {
-	agent any
+	agent { label 'jenkins_wn_1' }
 		options { disableConcurrentBuilds() }
 	stages {
 		stage('tools installation and packages creation') {
