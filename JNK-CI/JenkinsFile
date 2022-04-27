@@ -58,7 +58,7 @@ pipeline {
 			steps {
 				sh ''' 
 					git checkout dev
-					./packages_vc.sh -c create -f $FLAVOR -d test.db -i $IMAGE -g $GALAXY_RELEASE
+					cd JNK-CI && ./packages_vc.sh -c create -f $FLAVOR -d test.db -i $IMAGE -g $GALAXY_RELEASE
 					git add test.db
 					git commit -m "update flavor version"
 					git push
