@@ -1,6 +1,6 @@
 pipeline {
 	agent { label 'jenkins_wn_1' }
-		options { disableConcurrentBuilds() }
+	options { disableConcurrentBuilds() }
 	stages {
 		stage('tools installation and packages creation') {
 			steps {
@@ -15,13 +15,13 @@ pipeline {
 						export VM_IP=$(terraform output -raw public_ip)
 						echo $VM_IP
 						cd ..
-							git clone https://github.com/Laniakea-elixir-it/ansible-role-laniakea-galaxy-tools.git
-								cd ansible-role-laniakea-galaxy-tools && git checkout dev && cd ..  
-								cd JNK-CI
-								sed -i s/VM_IP/$VM_IP/g hosts
-								VERSION=$(./packages_vc.sh -c new -f $FLAVOR -d test.db -i $IMAGE -g $GALAXY_RELEASE)
-								ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -i hosts --private-key /home/centos/.ssh/id_rsa  tools_playbook.yml -e galaxy_flavor=$FLAVOR -e image=$IMAGE
-								ansible-playbook -i hosts --private-key /home/centos/.ssh/id_rsa dump.yml -e ansible_python_interpreter=/usr/bin/python -e image=$IMAGE -e galaxy_flavor=$FLAVOR -e galaxy_flavor_version=$VERSION '''
+						git clone https://github.com/Laniakea-elixir-it/ansible-role-laniakea-galaxy-tools.git
+						cd ansible-role-laniakea-galaxy-tools && git checkout dev && cd ..  
+						cd JNK-CI
+						sed -i s/VM_IP/$VM_IP/g hosts
+						VERSION=$(./packages_vc.sh -c new -f $FLAVOR -d test.db -i $IMAGE -g $GALAXY_RELEASE)
+						ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -i hosts --private-key /home/centos/.ssh/id_rsa  tools_playbook.yml -e galaxy_flavor=$FLAVOR -e image=$IMAGE
+						ansible-playbook -i hosts --private-key /home/centos/.ssh/id_rsa dump.yml -e ansible_python_interpreter=/usr/bin/python -e image=$IMAGE -e galaxy_flavor=$FLAVOR -e galaxy_flavor_version=$VERSION '''
 				}
 
 			}
@@ -64,23 +64,23 @@ pipeline {
 					git push
 					''' 
 			}
-	}
-	post { 
-		always { 
-			cleanWs()
 		}
-		success {
-			withCredentials([string(credentialsId: 'telegram_bot_API_token', variable: 'API_TOKEN')]) {
-//				build job: 'package_upload_to_cvmfs'
-				sh 'curl -s -X POST https://api.telegram.org/bot$API_TOKEN/sendMessage -d chat_id=-667232678 -d text="Laniakea express package $FLAVOR:$VERSION for $IMAGE build: SUCCESS!!!"'
+		post { 
+			always { 
+				cleanWs()
 			}
-		}
-		failure {
-			withCredentials([string(credentialsId: 'telegram_bot_API_token', variable: 'API_TOKEN')]) {
-				sh 'curl -s -X POST https://api.telegram.org/bot$API_TOKEN/sendMessage -d chat_id=-667232678 -d text="Laniakea express package $FLAVOR:$VERSION for $IMAGE build: FAILED!!!"'
+			success {
+				withCredentials([string(credentialsId: 'telegram_bot_API_token', variable: 'API_TOKEN')]) {
+					//				build job: 'package_upload_to_cvmfs'
+					sh 'curl -s -X POST https://api.telegram.org/bot$API_TOKEN/sendMessage -d chat_id=-667232678 -d text="Laniakea express package $FLAVOR:$VERSION for $IMAGE build: SUCCESS!!!"'
+				}
+			}
+			failure {
+				withCredentials([string(credentialsId: 'telegram_bot_API_token', variable: 'API_TOKEN')]) {
+					sh 'curl -s -X POST https://api.telegram.org/bot$API_TOKEN/sendMessage -d chat_id=-667232678 -d text="Laniakea express package $FLAVOR:$VERSION for $IMAGE build: FAILED!!!"'
+				}
 			}
 		}
 	}
 }
-
 
