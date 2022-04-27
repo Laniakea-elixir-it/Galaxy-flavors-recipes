@@ -12,8 +12,7 @@ echo  "-g    set package galaxy release"
 echo  "-f    set flavor name"
 echo  "-d    set database file path"
 echo  "-i    set image version"
-echo  "-c    set command to execute (create|show|print_db)"
-echo  "-c    set command to execute (create|show|print_db)"
+echo  "-c    set command to execute (create|show|print_db|new)"
 echo  "-h    print help"
 exit 1
 
@@ -76,6 +75,12 @@ main(){
 	parsing
 
 case $C in
+	
+	new)
+		latest_version
+		new_version=$(($latest_package_version + 1))
+		echo $new_version
+		;;
 
   show)
 		latest_version
