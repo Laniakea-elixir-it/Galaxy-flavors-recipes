@@ -21,7 +21,7 @@
         chdir: /buffer
 
     - name: save downloaded package in a variable to clean after
-      shell: echo release*
+      shell: echo galaxy-express*
       args:
         executable: /bin/bash
         chdir: /buffer

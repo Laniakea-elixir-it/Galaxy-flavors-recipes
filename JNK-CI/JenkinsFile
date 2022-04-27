@@ -28,7 +28,6 @@ pipeline {
 		}
 		stage('upload to swift'){
 			steps {
-
 				withCredentials([file(credentialsId: 'galaxy_it_credentials_mtangaro_general_user', variable: 'OPENSTACK_CREDENTIALS')]) {
 					sh '''
 						cd JNK-CI
@@ -48,9 +47,23 @@ pipeline {
 						cd TerraFormExpress
 						terraform destroy -auto-approve -var="image_name=$IMAGE" '''
 				}
-
 			}
 		}
+		stage('upload_to_cvmfs') {
+			steps {
+				sh'cd JNK-CI && ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -i hosts cvmfs_upload.yml'
+			}
+		}
+		stage('write-to-db') {
+			steps {
+				sh ''' 
+					git checkout dev
+					./packages_vc.sh -c create -f $FLAVOR -d test.db -i $IMAGE -g $GALAXY_RELEASE
+					git add test.db
+					git commit -m "update flavor version"
+					git push
+					''' 
+			}
 	}
 	post { 
 		always { 
