@@ -12,13 +12,11 @@
 - Perform the packages creation by calling the playbook `dump.yml`
 - Upload the packeges on the Openstack object storage Swift  `swift_upload.yml`
 - Trigger CVMFS_JenkinsFile on success `CVMFS_JenkinsFile`
-
-## CVMFS_JenkinsFile
-
 - Upload the packages on the buffer volume of the CVMFS Stratum0 tools.elixir-italy-cvmfs
 - Open the CVMFS transaction
 - Publish the new data
 - Update the version
+
 
 ##  Pipeline Schema 
 ![plot](package_update.png)
