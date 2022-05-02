@@ -12,6 +12,7 @@ G_CONDA_DIR=/export/tool_deps/_conda
 usage() { echo "Usage $0:
 -f flavour_name 
 -v flavour_version 
+-i image
 optional:
 
 -d dump_dir: directory that will contain the flavour package Files DEFAULT: /tmp/dump
@@ -21,7 +22,7 @@ optional:
 -p use pigz for faster gzip
 	" 1>&2; exit 1; }
 
-while getopts "d:c:s:t:v:f:p" o; do
+while getopts "d:c:s:t:v:f:pi:" o; do
     case "${o}" in
 
         d)
@@ -39,6 +40,9 @@ while getopts "d:c:s:t:v:f:p" o; do
         v)
             f_version=${OPTARG}
             ;;
+        i)
+            image=${OPTARG}
+            ;;
         f)
             f_name=${OPTARG}
             ;;
@@ -52,7 +56,7 @@ while getopts "d:c:s:t:v:f:p" o; do
 done
 shift $((OPTIND-1))
 
-if [ -z "${f_version}" ] || [ -z "${f_name}" ]; then
+if [ -z "${f_version}" ] || [ -z "${f_name}" ] || [ -z "${image}" ]; then
     usage
 fi
 
@@ -64,7 +68,7 @@ pg_dump -f galaxy_tools.psql galaxy_tools;
 BASH
 
 g_version=$( cd $G_SERVER_DIR && git branch | awk '/release/ { print $2}')
-DUMP_DIR=${DUMP_ROOT}/${g_version}_${f_name}_${f_version}
+DUMP_DIR=${DUMP_ROOT}/${image}_${g_version}_${f_name}_${f_version}
 mkdir -p $DUMP_DIR && chown -R galaxy:galaxy $DUMP_DIR ;
 mv /var/lib/pgsql/galaxy_tools.psql $DUMP_DIR/dump.psql &>$DUMP_DIR/dump.log &
 cp $G_CONFIG_DIR/shed_tool_conf.xml $DUMP_DIR &>> $DUMP_DIR/dump.log &
