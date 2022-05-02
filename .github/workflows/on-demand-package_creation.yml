@@ -6,7 +6,7 @@ name: on-demand-package-creation
 on:
   workflow_dispatch:
     branches:
-      - dev 
+      - master
     inputs:
       Flavor:
         type: choice 
