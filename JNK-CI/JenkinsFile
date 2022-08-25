@@ -56,13 +56,14 @@ pipeline {
 		}
 		stage('write-to-db') {
 			steps {
-				sh ''' 
-					git checkout dev
-					cd JNK-CI && ./packages_vc.sh -c create -f $FLAVOR -d test.db -i $IMAGE -g $GALAXY_RELEASE
-					git add test.db
-					git commit -m "update flavor version"
-					git push
-					''' 
+				withCredentials([sshUserPrivateKey(credentialsId: 'flavours_key', keyFileVariable: 'SSH_KEY')]) {
+					sh ''' 
+						cd JNK-CI && ./packages_vc.sh -c create -f $FLAVOR -d test.db -i $IMAGE -g $GALAXY_RELEASE
+						git add test.db
+						git commit -m "update flavor version"
+						git push
+						''' 
+				}
 			}
 		}
 	}
