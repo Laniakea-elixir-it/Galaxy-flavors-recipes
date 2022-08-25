@@ -16,7 +16,6 @@ pipeline {
 						echo $VM_IP
 						cd ..
 						git clone https://github.com/Laniakea-elixir-it/ansible-role-laniakea-galaxy-tools.git
-						cd ansible-role-laniakea-galaxy-tools && git checkout dev && cd ..  
 						cd JNK-CI
 						sed -i s/VM_IP/$VM_IP/g hosts
 						VERSION=$(./packages_vc.sh -c new -f $FLAVOR -d test.db -i $IMAGE -g $GALAXY_RELEASE)
