@@ -35,7 +35,7 @@
 
 
     - name: mv package to cvmfs
-      shell: mv "{{ package.stdout }}" /cvmfs/tools.elixir-italy-cvmfs/dump/
+      shell: mv -f "{{ package.stdout }}" /cvmfs/tools.elixir-italy-cvmfs/dump/
       args:
         executable: /bin/bash
         chdir: /buffer
