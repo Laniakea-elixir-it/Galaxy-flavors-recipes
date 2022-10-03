@@ -10,7 +10,7 @@ pipeline {
 						echo test > test_commit
 						git add test_commit
 						git commit -m "test commit"
-						git push
+						git push origin HEAD:test_commit
 						''' 
 				}
 			}
