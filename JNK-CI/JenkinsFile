@@ -6,20 +6,30 @@ pipeline {
 			steps {
 				withCredentials([file(credentialsId: 'galaxy_it_credentials_mtangaro_general_user', variable: 'OPESTACK_CREDENTIALS')]) {
 					sh '''
+                        # source the openstack credentials
 						set +x $OPENSTACK_CREDENTIALS
 						.  $OPESTACK_CREDENTIALS
+                        # clone the terraform recipe
 						git clone https://github.com/Laniakea-elixir-it/TerraFormExpress.git 
 						cd TerraFormExpress 
+                        # configure the tf provider
 						terraform init
+                        # create the infrastructure using the image var selected in the action trigger
 						terraform apply -auto-approve -var="image_name=$IMAGE"
+                        # save the public ip of the vm 
 						export VM_IP=$(terraform output -raw public_ip)
 						echo $VM_IP
 						cd ..
+                        # clone the tools ansible role
 						git clone https://github.com/Laniakea-elixir-it/ansible-role-laniakea-galaxy-tools.git
 						cd JNK-CI
+                        # set in the ansible inventory the vm ip
 						sed -i s/VM_IP/$VM_IP/g hosts
+                        # set the package version 
 						VERSION=$(./packages_vc.sh -c new -f $FLAVOR -d test.db -i $IMAGE -g $GALAXY_RELEASE)
+                        # install flavour tools 
 						ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -i hosts --private-key /home/centos/.ssh/id_rsa  tools_playbook.yml -e galaxy_flavor=$FLAVOR -e image=$IMAGE
+                        # create the tar packages 
 						ansible-playbook -i hosts --private-key /home/centos/.ssh/id_rsa dump.yml -e ansible_python_interpreter=/usr/bin/python -e image=$IMAGE -e galaxy_flavor=$FLAVOR -e galaxy_flavor_version=$VERSION '''
 				}
 

@@ -18,7 +18,7 @@
         src: rc.sh 
         dest: /tmp/dump/rc.sh
 
-    - name: 
+    - name: upload package on the galaxy_flavors swift container 
       shell: source /tmp/dump/rc.sh && /usr/local/bin/swift upload -S 1073741824  --insecure galaxy_flavors galaxy-express*
       args:
         chdir: /tmp/dump

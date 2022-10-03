@@ -14,7 +14,7 @@
         name: [ "setuptools_rust","python-openstackclient","python-swiftclient" ]
     
 
-    - name: source openstack credentials and download container
+    - name: source openstack credentials and download container in the cvmfs buffer
       shell: source /buffer/usegalaxy-it-openrc.sh && swift download galaxy_flavors
       args:
         executable: /bin/bash
@@ -34,7 +34,7 @@
         chdir: /buffer
 
 
-    - name: mv package to cvmfs
+    - name: mv package from cvmfs buffer to cvmfs
       shell: mv -f "{{ package.stdout }}" /cvmfs/tools.elixir-italy-cvmfs/dump/
       args:
         executable: /bin/bash

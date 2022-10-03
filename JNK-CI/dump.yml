@@ -1,10 +1,8 @@
 ---
 - hosts: galaxyservers
   become: true
-  vars:
-    #    galaxy_flavor: galaxy-testing-lite
-    #galaxy_flavor_version: 1
   tasks:
+
     - name: install pigz 
       yum:
         name: pigz
