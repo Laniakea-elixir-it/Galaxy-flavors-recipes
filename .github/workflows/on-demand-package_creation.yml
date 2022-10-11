@@ -33,6 +33,15 @@ on:
         options: 
           - galaxy-express_v3.0.2
           - galaxy-express_v4.0.0
+      Version:
+        type: choice
+        description: 'Galaxy version '
+        required: true
+        default: 'release_20.05'
+        options: 
+          - release_20.05
+          - release_21.09
+
 
   # Allows you to run this workflow manually from the Actions tab
   #  workflow_dispatch:
