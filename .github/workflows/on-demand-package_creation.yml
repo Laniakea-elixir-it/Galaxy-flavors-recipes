@@ -33,9 +33,9 @@ on:
         options: 
           - galaxy-express_v3.0.2
           - galaxy-express_v4.0.0
-      Version:
+      galaxy_release:
         type: choice
-        description: 'Galaxy version '
+        description: 'Galaxy release'
         required: true
         default: 'release_20.05'
         options: 
@@ -65,7 +65,7 @@ jobs:
           JnkUser: ${{ secrets.JnkUser }}
           JnkApiKey: ${{ secrets.JnkApiKey }}
         run: |
-          curl -X POST "https://${{ secrets.JnkUser }}:${{ secrets.JnkApiKey }}@build-usegalaxy-it.cloud.ba.infn.it/jenkins/job/flavour_packages_pipeline/buildWithParameters?token=${{ secrets.Token }}&FLAVOR=${{ github.event.inputs.Flavor }}&VERSION=${{ github.event.inputs.Version }}&IMAGE=${{ github.event.inputs.Image }}"
+          curl -X POST "https://${{ secrets.JnkUser }}:${{ secrets.JnkApiKey }}@build-usegalaxy-it.cloud.ba.infn.it/jenkins/job/flavour_packages_pipeline/buildWithParameters?token=${{ secrets.Token }}&FLAVOR=${{ github.event.inputs.Flavor }}&GALAXY_RELEASE=${{ github.event.inputs.galaxy_release }}&IMAGE=${{ github.event.inputs.Image }}"
       
       - name: when flavor is all  
         if: github.event.inputs.Flavor == 'all'
@@ -73,6 +73,6 @@ jobs:
           JnkUser: ${{ secrets.JnkUser }}
           JnkApiKey: ${{ secrets.JnkApiKey }}
         run: |
-          ls | grep -v 'JNK-CI\|workflow\|README.md\|examples'| xargs -L1 -I {} curl -X POST "https://${{ secrets.JnkUser }}:${{ secrets.JnkApiKey }}@build-usegalaxy-it.cloud.ba.infn.it/jenkins/job/flavour_packages_pipeline/buildWithParameters?token=${{ secrets.Token }}&FLAVOR={}&VERSION=${{ github.event.inputs.Version }}&IMAGE=${{ github.event.inputs.Image }}"
+          ls | grep -v 'JNK-CI\|workflow\|README.md\|examples'| xargs -L1 -I {} curl -X POST "https://${{ secrets.JnkUser }}:${{ secrets.JnkApiKey }}@build-usegalaxy-it.cloud.ba.infn.it/jenkins/job/flavour_packages_pipeline/buildWithParameters?token=${{ secrets.Token }}&FLAVOR={}&GALAXY_RELEASE=${{ github.event.inputs.galaxy_release }}&IMAGE=${{ github.event.inputs.Image }}"
 
 
